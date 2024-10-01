@@ -16,7 +16,7 @@ const menuItems = [
       {
         icon: "/teacher.png",
         label: "Customer Profile",
-        href: "/",
+        href: "/customerProfile",
       },
       {
         icon: "/avatar.png",
@@ -97,7 +97,7 @@ const Menu = () => {
   };
 
   return (
-    <div className="mt-4 text-xs">
+    <div className="mt-4  text-xs">
       {/* SEARCH BAR */}
       <div className="logo2 md:flex items-center gap-2 rounded-[5px] text-xs ring-[1.5px] ring-gray-600 px-2 mb-2">
         <input
@@ -109,24 +109,27 @@ const Menu = () => {
         <FaSearch size={16} color="white"/>
         </span>
       </div>
-      {menuItems.map((i) => (
-        <div className="flex flex-col gap-2" key={i.title}>
+      
+      
+      {menuItems.map((menu) => (
+        <div className="flex flex-col gap-2" key={menu.title}>
           <span className="hidden lg:block text-gray-400 font-light my-4">
-            {i.title}
+            {menu.title}
           </span>
-          {i.items.map((item) => (
+          {menu.items.map((item) => (
             <div key={item.label}>
               {/* Main Menu Item */}
               <div
                 className="flex items-center justify-between lg:justify-start gap-4 text-white py-2 md:px-2 rounded-md hover:bg-lamaSkyLight cursor-pointer"
-                onClick={() => handleSubmenuToggle(item.label)} // Toggle submenu on click
+                onClick={() => handleSubmenuToggle(item.label)}
               >
                 <div className="flex items-center gap-4">
                   <img src={item.icon} alt="" width={17} height={17} />
-                  <span className="logo">{item.label}</span>
+                  <Link to={item.href} className="logo text-white">
+                    {item.label}
+                  </Link>
                 </div>
-                {/* Display arrow only if the menu item has subLists */}
-                {item.subLists && item.subLists.length > 0 && (
+                {item.subLists && (
                   <span className="ml-auto">
                     {activeSubmenu === item.label ? (
                       <TiArrowSortedUp className="text-xl text-gray-300" />
@@ -155,6 +158,7 @@ const Menu = () => {
           ))}
         </div>
       ))}
+
     </div>
   );
 };

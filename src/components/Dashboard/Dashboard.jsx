@@ -3,7 +3,6 @@ import { GiProgression } from "react-icons/gi";
 import { IoIosPersonAdd } from "react-icons/io";
 import { IoPieChart } from "react-icons/io5";
 
-
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import Cards from './Cards';
