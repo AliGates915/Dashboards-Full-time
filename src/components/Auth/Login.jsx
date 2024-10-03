@@ -1,9 +1,10 @@
+
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; 
 
-// eslint-disable-next-line react/prop-types
-function Login({ users }) {
+function Login() {
   const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
   
@@ -14,28 +15,28 @@ function Login({ users }) {
   };
 
   const onSubmit = (data) => {
-    const { email, password } = data;
-
-    console.log("Login data:", data);
-    console.log("Users array:", users);
-    console.log("Email:", email);
-    console.log("Password:", password);
-
-    // eslint-disable-next-line react/prop-types
-    const user = users.length > 0 ? users.find(
-      (user) => user.email === email && user.password === password
-    ) : undefined;
-
-    console.log("User found:", user); // Debug user found
-
-    if (user) {
-      alert('Login successful!');
-      navigate('/dashboard');
-    } else {
-      alert('Invalid credentials');
-    }
+    axios.post('https://auditsoftware.vercel.app/auth/login', data)
+      .then(res => {
+        if (res && res.data && res.data.token) {
+          const token = res.data.token;
+          localStorage.setItem('jwtToken', token);
+          alert('Login successful!');
+          navigate("/dashboard");
+        } else {
+          console.error('Unexpected response format:', res);
+          alert('Login failed. Please try again.');
+        }
+      })
+      .catch(err => {
+        console.error('Error during login request:', err);
+        if (err.response && err.response.data && err.response.data.message) {
+          alert(`Login failed: ${err.response.data.message}`);
+        } else {
+          alert('Login failed. Please check your credentials.');
+        }
+      });
   };
-
+  
   return (
     <div className="font-[sans-serif] bg-white flex items-center justify-center md:h-screen p-4">
       <div className="shadow-[0_2px_16px_-3px_rgba(6,81,237,0.3)] max-w-6xl max-md:max-w-lg rounded-md p-6">
@@ -49,44 +50,18 @@ function Login({ users }) {
           </div>
           <form className="md:max-w-md w-full mx-auto" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-12">
-              <h3 className="text-4xl font-extrabold text-blue">Sign in</h3>
+              <h3 className="text-4xl font-extrabold text-blue">Login in</h3>
             </div>
 
             <div>
               <div className="relative flex items-center">
                 <input
                   {...register('email', { required: true })}
-                  type="email"  // Changed from text to email
-                  className="w-full text-sm border-b border-gray-300 focus:border-blue px-2 py-3 outline-none"
+                  type="email"
+                  className="w-full text-sm border-b border-gray-300 text-gray-800 focus:border-blue px-2 py-3 outline-none"
                   placeholder="Enter email"
                 />
                 {errors.email && <span className="text-red-500">Email is required</span>}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="#bbb"
-                  stroke="#bbb"
-                  className="w-[18px] h-[18px] absolute right-2"
-                  viewBox="0 0 682.667 682.667"
-                >
-                  <defs>
-                    <clipPath id="a" clipPathUnits="userSpaceOnUse">
-                      <path d="M0 512h512V0H0Z" data-original="#000000"></path>
-                    </clipPath>
-                  </defs>
-                  <g clipPath="url(#a)" transform="matrix(1.33 0 0 -1.33 0 682.667)">
-                    <path
-                      fill="none"
-                      strokeMiterlimit="10"
-                      strokeWidth="40"
-                      d="M452 444H60c-22.091 0-40-17.909-40-40v-39.446l212.127-157.782c14.17-10.54 33.576-10.54 47.746 0L492 364.554V404c0 22.091-17.909 40-40 40Z"
-                      data-original="#000000"
-                    ></path>
-                    <path
-                      d="M472 274.9V107.999c0-11.027-8.972-20-20-20H60c-11.028 0-20 8.973-20 20V274.9L0 304.652V107.999c0-33.084 26.916-60 60-60h392c33.084 0 60 26.916 60 60v196.653Z"
-                      data-original="#000000"
-                    ></path>
-                  </g>
-                </svg>
               </div>
             </div>
 
@@ -125,9 +100,9 @@ function Login({ users }) {
                 </label>
               </div>
               <div>
-                <a href="javascript:void(0);" className="text-blue font-semibold text-sm hover:underline">
+                <button onClick={() => alert('Forgot password logic here')} className="text-blue font-semibold text-sm hover:underline">
                   Forgot Password?
-                </a>
+                </button>
               </div>
             </div>
 
@@ -136,7 +111,7 @@ function Login({ users }) {
                 type="submit"
                 className="w-full shadow-xl py-2.5 px-5 text-sm font-semibold rounded-md text-white bg-blue hover:bg-[#005a59] focus:outline-none"
               >
-                Sign in
+                Login in
               </button>
               <p className="text-gray-800 text-sm text-center mt-6">
                 Do not have an account{" "}

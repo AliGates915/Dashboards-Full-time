@@ -31,8 +31,8 @@ function Table_Calen_Auditor() {
   };
 
   return (
-    <div className='flex flex-row gap-2'>
-      <div className='bg-[#353a40] px-4 py-4 w-[42rem] rounded-md  shadow-md h-[50%]'>
+    <div className='mt-3 flex flex-row gap-2'>
+      <div className='bg-[#353a40] px-4 py-4 w-[46.5rem] shadow-md h-[24rem]'>
         {/* Header */}
         <div className='flex justify-between items-center'>
           <h2 className="text-left text-white font-semibold">Working Log</h2>
@@ -58,7 +58,7 @@ function Table_Calen_Auditor() {
           <tbody>
             {data.map((user, index) => (
               <tr key={index} className="border-b border-gray-700">
-                <td className="py-2 px-4 text-[Blue]">{user.Date}</td>
+                <td className="py-2 px-4 text-blue">{user.Date}</td>
                 <td className="py-2 px-4">{user.Time}</td>
                 <td className="py-2 px-4">{user.name}</td>
                 <td className={`text-xs px-3 rounded-md ${getStatusClass(user.stats)} text-center`}>
@@ -71,10 +71,10 @@ function Table_Calen_Auditor() {
         </table>
       </div>
       <div className='flex flex-col'> 
-      <div className='bg-[Green] w-[20rem] h-[40%]'>
+      <div className='bg-[Green] shadow-xl w-[22rem] h-[42%]'>
         <BigCalendar />
       </div>
-      <div className=' bg-[#353a40] mt-4 w-[20rem] h-[35%]'>
+      <div className='mt-4 w-[22rem] h-[35%]'>
         <Auditor />
       </div>
       </div>

@@ -3,15 +3,16 @@ import React from "react"
 
 const Navbar = () => {
   return (
-    <div className='bg-white flex items-center justify-between p-2'>
+    <div className='bg-blue flex items-center justify-between p-2'>
       {/* SEARCH BAR */}
-      <div className='logo2 md:flex items-center gap-2 text-xs rounded-full ring-[1.5px] ring-gray-300 px-2'>
-        <img src="/search.png" alt="" width={14} height={14}/>
-        <input type="text" placeholder="Search..." className="w-[200px] p-2 bg-transparent outline-none"/>
+      <div className='logo2 md:flex items-center gap-2 text-2xl px-2 font-semibold text-white'>
+        Dashboard
+        {/* <img src="/search.png" alt="" width={14} height={14}/>
+        <input type="text" placeholder="Search..." className="w-[200px] p-2 bg-transparent outline-none"/> */}
       </div>
       {/* ICONS AND USER */}
       <div className='flex items-center gap-6 justify-end w-full'>
-        <div className=' rounded-full w-7 h-7 flex items-center justify-center cursor-pointer'>
+        <div className='bg-white rounded-full w-7 h-7 flex items-center justify-center cursor-pointer'>
           <img src="/message.png" alt="" width={20} height={20}/>
         </div>
         <div className='bg-white rounded-full w-7 h-7 flex items-center justify-center cursor-pointer relative'>
@@ -19,8 +20,8 @@ const Navbar = () => {
           <div className='absolute -top-3 -right-3 w-5 h-5 flex items-center justify-center bg-purple-500 text-white rounded-full text-xs'>1</div>
         </div>
         <div className='flex flex-col'>
-          <span className="text-xs leading-3 font-medium text-black">John Doe</span>
-          <span className="text-[10px] text-gray-500 text-right">Admin</span>
+          <span className="text-xs leading-3 font-medium text-white">John Doe</span>
+          <span className="text-[10px] text-gray-300 text-right">Admin</span>
         </div>
         <img src="/login.png" alt="" width={36} height={36} className="rounded-full"/>
       </div>

@@ -10,7 +10,7 @@ function DonutChart() {
         <Chart
           className="ml-1 mt-10"
           type="donut"
-          width={320}
+          width={330}
           height={250}
           series={[45, 67, 87, 55, 34]}
           options={{

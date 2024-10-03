@@ -17,7 +17,7 @@ const auditors = [
 
 const Auditor = () => {
   return (
-    <div className="bg-gray-800 p-4 rounded-lg w-[20rem] ">
+    <div className="bg-gray-800 p-4 w-[22rem] ">
     <div className="mx-auto">
       {/* Header */}
       <div className="flex justify-between items-center text-white mb-4">

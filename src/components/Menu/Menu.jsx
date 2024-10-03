@@ -3,7 +3,6 @@ import { useState } from "react";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti"; // Import arrow icons
 import { FaSearch } from "react-icons/fa";
 
-
 const menuItems = [
   {
     title: "MENU",
@@ -11,29 +10,36 @@ const menuItems = [
       {
         icon: "/home.png",
         label: "Dashboard",
-        href: "/",
+        href: "/dashboard",
       },
       {
         icon: "/teacher.png",
         label: "Customer Profile",
-        href: "/customerProfile",
+        href: "/customers",
       },
       {
         icon: "/avatar.png",
         label: "Auditors Profile",
-        href: "/",
+        href: "/auditors",
       },
       {
         icon: "/parent.png",
         label: "Services Offered",
-        href: "/",
+        
         subLists: [
           {
-            label: "Services List",
+            label: "Select Services",
+            href: "/services-select",
           },
           {
-            label: "Services Details",
+            label: "Services Types",
+            href: "/services-type",
           },
+          {
+            label: "Services List",
+            href: "/services-list",
+          },
+          
         ],
       },
       {
@@ -97,7 +103,7 @@ const Menu = () => {
   };
 
   return (
-    <div className="mt-4  text-xs">
+    <div className=" mt-4 text-xs">
       {/* SEARCH BAR */}
       <div className="logo2 md:flex items-center gap-2 rounded-[5px] text-xs ring-[1.5px] ring-gray-600 px-2 mb-2">
         <input

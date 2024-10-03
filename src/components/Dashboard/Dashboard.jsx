@@ -11,8 +11,8 @@ import Table_Calen_Auditor from './Table_Calen_Auditor';
 
 function Home() {
   return (
-    <div className='pl-4 pt-2 text-black bg-[#f5f6fa]'>
-      Dashboard
+    <div className='pl-4 mt-4 text-black '>
+      
       {/* Top 4 Cards */}
       <div className='flex justify-center gap-3'>
         <Cards type="Customer" num="150" color="bg-blue" Img={<HiOutlineShoppingBag size={45} color="#a9b0b0" />} />

@@ -8,8 +8,8 @@ import ProgressBar from './ProgressBar';
 
 function Charts() {
   return (
-    <div className='flex flex-row w-full max-h-72 gap-2'>
-      <div className='my-2 bg-white px-1 py-1 w-[22rem] border-solid text-black h-[52%]'>
+    <div className='flex flex-row w-full max-h-[18rem] gap-2'>
+      <div className='my-2 bg-white px-1 py-1 w-[24rem] text-black h-[17.5rem] shadow-xl'>
         Sales
         <div className='pt-2 text-xs flex justify-between items-end'>
           <div className='flex flex-col justify-start'>
@@ -25,10 +25,10 @@ function Charts() {
         </div>
         <BarChart />
       </div>
-      <div className='my-2 bg-[hsl(213,9%,23%)] px-1 py-4 w-[20rem] border-solid  h-[52%]'>
+      <div className='my-2 bg-[rgb(53,58,64)] px-1 py-4 w-[22rem] border-solid  h-[17.5rem] shadow-xl'>
         <DonutChart />
       </div>
-      <div className='my-2 bg-[#353a40] px-1 py-[17px] w-[20rem] border-solid  h-[50%]'>
+      <div className=' my-2 bg-[#353a40] px-1 py-[17px] w-[22rem] border-solid h-[17.5rem] shadow-xl'>
         <ProgressBar />
       </div>
     </div>
