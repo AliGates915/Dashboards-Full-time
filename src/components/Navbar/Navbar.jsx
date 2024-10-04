@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react"
+import {Link} from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -12,6 +13,11 @@ const Navbar = () => {
       </div>
       {/* ICONS AND USER */}
       <div className='flex items-center gap-6 justify-end w-full'>
+        <Link to='/signup'>
+          <div className="text-gray-500 items-center">
+            Sign Up
+          </div>
+        </Link>
         <div className='bg-white rounded-full w-7 h-7 flex items-center justify-center cursor-pointer'>
           <img src="/message.png" alt="" width={20} height={20}/>
         </div>
