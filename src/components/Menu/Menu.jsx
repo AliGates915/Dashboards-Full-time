@@ -42,6 +42,21 @@ const menuItems = [
           
         ],
       },
+      // Course
+      {
+        icon: "/parent.png",
+        label: "Courses",
+        subLists: [
+          {
+            label: "List of Questions",
+            href: "/course",
+          },
+          {
+            label: "Customer Questions",
+            href: "/customer-questions",
+          },
+        ],
+      },
       {
         icon: "/subject.png",
         label: "Require Authentication",
@@ -83,6 +98,7 @@ const menuItems = [
           },
           {
             label: "Certificate Format",
+            href: '/certificate'
           },
         ],
       },

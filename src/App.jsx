@@ -14,6 +14,9 @@ import ServicesTypes from "./components/Services/ServicesTypes";
 import SelectServices from "./components/Services/SelectServices";
 import AllAuditors from "./components/Auditors/AllAuditors";
 import UpdateProfile from "./components/Auditors/UpdateProfile";
+import QuestionList from "./components/Customers/Course/QuestionList";
+import CustomerQuestions from "./components/Customers/Course/CustomerQuestions";
+import CertificateForm from './components/Certificate/CertificateForm'
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -21,6 +24,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path='/' element={<Login users={users}/>} />
         <Route path="/login" element={<Login users={users} />} />
         <Route
           path="/signup"
@@ -96,6 +100,42 @@ function App() {
             <Layout>
               <div className="bg-[#ceeff5] w-full h-full">
                 <SelectServices />
+              </div>
+            </Layout>
+          }
+        />
+
+        {/* Course */}
+        
+        <Route
+          path="/course"
+          element={
+            <Layout>
+              <div className="bg-[#ceeff5] w-full h-full">
+                <QuestionList />
+              </div>
+            </Layout>
+          }
+        />
+        
+        <Route
+          path="/customer-questions"
+          element={
+            <Layout>
+              <div className="bg-[#ceeff5] w-full h-full">
+                <CustomerQuestions />
+              </div>
+            </Layout>
+          }
+        />
+      {/* Certificate */}
+      
+      <Route
+          path="/certificate"
+          element={
+            <Layout>
+              <div className="bg-[#ceeff5] w-full h-full">
+                <CertificateForm />
               </div>
             </Layout>
           }

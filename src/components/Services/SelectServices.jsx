@@ -1,28 +1,30 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function SelectServices() {
+// eslint-disable-next-line react/prop-types
+function SelectServices({ onServiceTypeSelect }) {
   const [selectedCustomer, setSelectedCustomer] = useState('');
   const [selectedServiceType, setSelectedServiceType] = useState('');
-  const [selectedService, setSelectedService] = useState('');
+  const [selectedAuditor, setSelectedAuditor] = useState('');
   const [isOpenCustomer, setIsOpenCustomer] = useState(false);
   const [isOpenServiceType, setIsOpenServiceType] = useState(false);
   const [isOpenService, setIsOpenService] = useState(false);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+
+  const navigate = useNavigate(); // for programmatic navigation
 
   const services = [
-    'Web Development', 'Mobile App Development', 'Digital Marketing', 'Graphic Design', 
-    'Content Creation', 'SEO Optimization', 'Cloud Computing', 'IT Consulting', 
-    'Cybersecurity', 'Data Analysis', 'E-commerce Solutions', 'Social Media Management', 
-    'UI/UX Design', 'DevOps Services', 'Blockchain Development'
+    'Web Development',
+    'Mobile App Development',
+    'Graphic Design',
+    'Cloud Computing',
+    'Blockchain Development',
   ];
 
-  const getRandomOptions = () => {
-    const shuffled = [...services].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 5); 
-  };
-
-  const [customerOptions] = useState(getRandomOptions());
-  const [serviceTypeOptions] = useState(getRandomOptions());
-  const [serviceOptions] = useState(getRandomOptions());
+  const auditors = [
+    "Alexander Pierce", "Nadia", "Jane",
+    'Nora', 'Alexander', 'Sarah', 'Norman', 'John'
+  ];
 
   const toggleCustomerDropdown = () => {
     setIsOpenCustomer(!isOpenCustomer);
@@ -44,12 +46,33 @@ function SelectServices() {
 
   const closeDropdown = (setIsOpen) => setIsOpen(false);
 
+  const handleSave = () => {
+    // Validation: Check if any field is empty
+    if (!selectedCustomer || !selectedServiceType || !selectedAuditor) {
+      alert('Please fill out all fields before saving.');
+      return; // Prevent navigation if validation fails
+    }
+
+    // Call the onServiceTypeSelect with the selected service type
+    onServiceTypeSelect(selectedServiceType);
+    setTooltipVisible(true);
+
+    // Navigate to the new page after validation and saving
+    navigate('/customer-questions');
+  };
+
   return (
     <div className='bg-[#f4fcfe] mx-[18rem] w-88 border border-blue mt-8'>
+      {/* Tooltip for successful save */}
+      {tooltipVisible && (
+        <div className="absolute top20 left-[86%] transform bg-green text-white p-2">
+          Successfully saved!
+        </div>
+      )}
       <h1 className='flex justify-center text-2xl font-bold mt-4 text-blue'>
         Select Services
       </h1>
-      
+
       <div className='grid grid-cols-1 mt-2 mx-[10.5rem]'>
 
         {/* Select Customer */}
@@ -64,6 +87,7 @@ function SelectServices() {
             >
               <input
                 type="text"
+                required
                 className="bg-transparent text-gray-800 text-sm outline-none cursor-pointer w-full"
                 placeholder="Select a customer"
                 value={selectedCustomer}
@@ -74,11 +98,11 @@ function SelectServices() {
 
             {isOpenCustomer && (
               <div
-                className="absolute mt-1 w-full bg-white shadow-lg rounded-xl max-h-40 overflow-auto z-10" // Added z-index
+                className="absolute mt-1 w-full bg-white shadow-lg rounded-xl max-h-40 overflow-auto z-10"
                 onMouseLeave={() => closeDropdown(setIsOpenCustomer)}
               >
                 <ul className="divide-y divide-gray-100">
-                  {customerOptions.map((option, index) => (
+                  {services.map((option, index) => (
                     <li
                       key={index}
                       className="px-4 py-2 text-gray-800 hover:bg-blue-100 cursor-pointer"
@@ -108,6 +132,7 @@ function SelectServices() {
             >
               <input
                 type="text"
+                required
                 className="bg-transparent text-gray-800 text-sm outline-none cursor-pointer w-full"
                 placeholder="Select a service type"
                 value={selectedServiceType}
@@ -122,12 +147,13 @@ function SelectServices() {
                 onMouseLeave={() => closeDropdown(setIsOpenServiceType)}
               >
                 <ul className="divide-y divide-gray-100">
-                  {serviceTypeOptions.map((option, index) => (
+                  {services.map((option, index) => (
                     <li
                       key={index}
                       className="px-4 py-2 text-gray-800 hover:bg-blue-100 cursor-pointer"
                       onClick={() => {
                         setSelectedServiceType(option);
+                        onServiceTypeSelect(option); // Lift the selected service type
                         closeDropdown(setIsOpenServiceType);
                       }}
                     >
@@ -140,10 +166,10 @@ function SelectServices() {
           </div>
         </div>
 
-        {/* Select Services */}
+        {/* Select Auditor */}
         <div className="mb-4">
           <label className="flex justify-center font-semibold text-gray-800 mb-2">
-            Select Service
+            Select Auditor
           </label>
           <div className="relative">
             <div
@@ -152,9 +178,10 @@ function SelectServices() {
             >
               <input
                 type="text"
+                required
                 className="bg-transparent text-gray-800 text-sm outline-none cursor-pointer w-full"
-                placeholder="Select a service"
-                value={selectedService}
+                placeholder="Select an auditor"
+                value={selectedAuditor}
                 readOnly
               />
               <span className="ml-2 text-gray-800">▼</span>
@@ -166,12 +193,12 @@ function SelectServices() {
                 onMouseLeave={() => closeDropdown(setIsOpenService)}
               >
                 <ul className="divide-y divide-gray-100">
-                  {serviceOptions.map((option, index) => (
+                  {auditors.map((option, index) => (
                     <li
                       key={index}
                       className="px-4 py-2 text-gray-800 hover:bg-blue-100 cursor-pointer"
                       onClick={() => {
-                        setSelectedService(option);
+                        setSelectedAuditor(option);
                         closeDropdown(setIsOpenService);
                       }}
                     >
@@ -196,10 +223,16 @@ function SelectServices() {
           />
         </div>
 
+        {/* Save Button */}
         <div className='pb-6 ml-3'>
-          <button className="bg-blue text-white text-md font-bold w-48 py-2 mt-6 rounded-xl hover:bg-[#005a59]">
-            SAVE
+          <button 
+            className="bg-blue text-white text-md font-bold w-48 py-2 mt-6 rounded-xl hover:bg-[#005a59]"
+            onClick={handleSave}
+            
+          >
+            Save & Continue
           </button>
+          
         </div>
       </div>
     </div>
