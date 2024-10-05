@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 function Login() {
@@ -153,12 +153,13 @@ function Login() {
               </button>
               <p className="text-gray-800 text-sm text-center mt-6">
                 Do not have an account{" "}
-                <a
-                  href="/signup"
+                <Link to='/signup'>
+                <span
                   className="text-blue-600 font-semibold hover:underline text-blue ml-1 whitespace-nowrap"
                 >
                   Register here
-                </a>
+                </span>
+                </Link>
               </p>
             </div>
           </form>
