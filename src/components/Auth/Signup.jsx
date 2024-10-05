@@ -1,6 +1,6 @@
  import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate,Link } from 'react-router-dom'; 
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -299,7 +299,7 @@ const Signup = () => {
           <p className='ml-2 text-gray-800'>
             Already have an account?
             <span className='pl-1 text-blue font-medium'>
-              <a href="/login">Login here</a>
+              <Link to="/login">Login here</Link>
             </span>
           </p>
           <div className='flex mb-8 '>
