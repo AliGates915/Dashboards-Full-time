@@ -17,6 +17,8 @@ import UpdateProfile from "./components/Auditors/UpdateProfile";
 import QuestionList from "./components/Customers/Course/QuestionList";
 import CustomerQuestions from "./components/Customers/Course/CustomerQuestions";
 import CertificateForm from './components/Certificate/CertificateForm'
+import AddQuestion from './components/Add Questions/AddQuestion'
+import Branch from './components/Branches/Branch'
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -104,6 +106,16 @@ function App() {
             </Layout>
           }
         />
+        {/* AddQuestion */}
+        <Route path="/add-question" 
+          element={
+            <Layout>
+              <div className="bg-[#ceeff5] w-full h-full">
+                <AddQuestion />
+              </div>
+            </Layout>
+          }
+        />
 
         {/* Course */}
         
@@ -128,8 +140,21 @@ function App() {
             </Layout>
           }
         />
-      {/* Certificate */}
+
+      {/* Branch */}
+      <Route
+          path="/branch"
+          element={
+            <Layout>
+              <div className="bg-[#ceeff5] w-full h-full">
+                <Branch />
+              </div>
+            </Layout>
+          }
+        />
       
+      
+      {/* Certificate */}
       <Route
           path="/certificate"
           element={

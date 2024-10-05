@@ -28,10 +28,6 @@ const menuItems = [
         
         subLists: [
           {
-            label: "Select Services",
-            href: "/services-select",
-          },
-          {
             label: "Services Types",
             href: "/services-type",
           },
@@ -39,7 +35,10 @@ const menuItems = [
             label: "Services List",
             href: "/services-list",
           },
-          
+          {
+            label: "Select Services",
+            href: "/services-select",
+          },
         ],
       },
       // Course
@@ -56,6 +55,12 @@ const menuItems = [
             href: "/customer-questions",
           },
         ],
+      },
+      
+      {
+        icon: "/subject.png",
+        label: "Add Questions",
+        href: "/add-question",
       },
       {
         icon: "/subject.png",
@@ -92,6 +97,7 @@ const menuItems = [
         subLists: [
           {
             label: "Branches",
+            href: '/branch'
           },
           {
             label: "Auditors Task",

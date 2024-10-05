@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 function ServicesTypes() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState(''); // State for selected service
+  const [selectedBranch, setSelectedBranch] = useState(''); // State for selected service
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -13,22 +13,22 @@ function ServicesTypes() {
     setIsOpen(false);
   };
 
-  const handleSelectService = (service) => {
-    setSelectedService(service);
+  const handleSelectBranch = (service) => {
+    setSelectedBranch(service);
     closeDropdown();
   };
 
   return (
     <div className='bg-[#f4fcfe] mx-[18rem] w-88 border-blue border mt-40'>
       <h1 className='flex justify-start text-2xl font-bold mt-4 pl-8 text-blue'>
-        Service Types
+        Branches
       </h1>
 
       <div className='grid grid-cols-1 mt-2 mx-[2rem] '>
 
         <div className="mb-4">
           <label htmlFor="services" className="flex justify-start font-semibold text-gray-800 mb-2">
-            Select Service Type
+            Select Branch
           </label>
           <div className="relative">
             {/* Dropdown input field */}
@@ -36,8 +36,8 @@ function ServicesTypes() {
               <input
                 type="text"
                 className="bg-transparent text-sm text-gray-900 outline-none cursor-pointer w-full"
-                placeholder="Select a service"
-                value={selectedService} // Display the selected service
+                placeholder="Select a branch"
+                value={selectedBranch} // Display the selected service
                 readOnly
               />
               {/* Dropdown icon */}
@@ -68,7 +68,7 @@ function ServicesTypes() {
                     <li
                       key={service}
                       className="px-4 py-2 text-gray-800 hover:bg-blue-100 cursor-pointer"
-                      onClick={() => handleSelectService(service)}
+                      onClick={() => handleSelectBranch(service)}
                     >
                       {service}
                     </li>

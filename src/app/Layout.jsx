@@ -7,7 +7,7 @@ export default function Layout
 ({ children })
 {
   return (
-      <div className="bg-[#21201f] h-[110vh] flex">
+      <div className="bg-[#21201f] h-[120vh] flex">
         {/* Left */}
         <div className="w-[16%] md:w-[10%] lg:w-[18%] xl:w-[16%] p-4 ">
           <Link to='/' className='flex items-center justify-center lg:justify-start gap-2'>

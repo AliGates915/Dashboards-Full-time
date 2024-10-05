@@ -23,41 +23,28 @@ function Login() {
       .then((res) => {
         if (res && res.data.token) {
           const token = res.data.token;
-          console.log(token)
-          // Store JWT token in localStorage
+          console.log(token);
           localStorage.setItem("jwtToken", token);
-  
-          // Success message
           alert("Login successful!");
-  
-          // Retrieve the token from localStorage
           const jwtToken = localStorage.getItem("jwtToken");
-  
-          // Navigate to dashboard if token exists
           if (jwtToken) {
             navigate("/dashboard");
           }
         } else {
-          // If no token is generated (login failed), redirect to signup
           alert("Login failed. No token generated. Redirecting to signup.");
           navigate("/signup");
         }
       })
       .catch((err) => {
         console.error("Error during login request:", err);
-  
-        // If error occurs due to invalid credentials, navigate to signup
         if (err.response && err.response.data && err.response.data.message) {
           alert(`Login failed: ${err.response.data.message}`);
         } else {
           alert("Login failed. Please check your credentials.");
         }
-  
-        // Redirect to signup in case of failed login
         navigate("/signup");
       });
   };
-  
 
   return (
     <div className="font-[sans-serif] bg-white flex items-center justify-center md:h-screen p-4">
@@ -78,6 +65,41 @@ function Login() {
               <h3 className="text-4xl font-extrabold text-blue">Login in</h3>
             </div>
 
+            {/* Radio buttons for roles */}
+            <div className="mb-6 text-xs">
+              {/* <p className="text-gray-800 font-semibold">Select Role</p> */}
+              <div className="flex space-x-4 mt-2 text-sm">
+                <label className="flex items-center space-x-2">
+                  <input
+                    {...register("role")}
+                    type="radio"
+                    value="Customer"
+                    className="form-radio h-3 w-3 text-blue"
+                  />
+                  <span className="text-gray-800">Customer</span>
+                </label>
+                <label className="flex items-center space-x-2">
+                  <input
+                    {...register("role")}
+                    type="radio"
+                    value="Auditor"
+                    className="form-radio h-3 w-3 text-blue"
+                  />
+                  <span className="text-gray-800">Auditor</span>
+                </label>
+                <label className="flex items-center space-x-2">
+                  <input
+                    {...register("role")}
+                    type="radio"
+                    value="Admin"
+                    className="form-radio h-3 w-3 text-blue"
+                  />
+                  <span className="text-gray-800">Admin</span>
+                </label>
+              </div>
+            </div>
+
+            {/* Email input */}
             <div>
               <div className="relative flex items-center">
                 <input
@@ -92,6 +114,7 @@ function Login() {
               </div>
             </div>
 
+            {/* Password input */}
             <div className="mt-8">
               <div className="relative flex items-center">
                 <input
@@ -119,6 +142,7 @@ function Login() {
               </div>
             </div>
 
+            {/* Remember me and Forgot password */}
             <div className="flex flex-wrap items-center justify-between gap-4 mt-6">
               <div className="flex items-center">
                 <input
@@ -144,6 +168,7 @@ function Login() {
               </div>
             </div>
 
+            {/* Submit button */}
             <div className="mt-12">
               <button
                 type="submit"
@@ -153,12 +178,10 @@ function Login() {
               </button>
               <p className="text-gray-800 text-sm text-center mt-6">
                 Do not have an account{" "}
-                <Link to='/signup'>
-                <span
-                  className="text-blue-600 font-semibold hover:underline text-blue ml-1 whitespace-nowrap"
-                >
-                  Register here
-                </span>
+                <Link to="/signup">
+                  <span className="text-blue-600 font-semibold hover:underline text-blue ml-1 whitespace-nowrap">
+                    Register here
+                  </span>
                 </Link>
               </p>
             </div>
