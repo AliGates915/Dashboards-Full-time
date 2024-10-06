@@ -65,40 +65,6 @@ function Login() {
               <h3 className="text-4xl font-extrabold text-blue">Login in</h3>
             </div>
 
-            {/* Radio buttons for roles */}
-            <div className="mb-6 text-xs">
-              {/* <p className="text-gray-800 font-semibold">Select Role</p> */}
-              <div className="flex space-x-4 mt-2 text-sm">
-                <label className="flex items-center space-x-2">
-                  <input
-                    {...register("role")}
-                    type="radio"
-                    value="Customer"
-                    className="form-radio h-3 w-3 text-blue"
-                  />
-                  <span className="text-gray-800">Customer</span>
-                </label>
-                <label className="flex items-center space-x-2">
-                  <input
-                    {...register("role")}
-                    type="radio"
-                    value="Auditor"
-                    className="form-radio h-3 w-3 text-blue"
-                  />
-                  <span className="text-gray-800">Auditor</span>
-                </label>
-                <label className="flex items-center space-x-2">
-                  <input
-                    {...register("role")}
-                    type="radio"
-                    value="Admin"
-                    className="form-radio h-3 w-3 text-blue"
-                  />
-                  <span className="text-gray-800">Admin</span>
-                </label>
-              </div>
-            </div>
-
             {/* Email input */}
             <div>
               <div className="relative flex items-center">
@@ -141,7 +107,59 @@ function Login() {
                 </svg>
               </div>
             </div>
-
+            
+            {/* Radio buttons for roles */}
+            <div className="my-4 text-xs">
+              <p className="text-gray-600 font-semibold">Select Role :</p>
+              <div className="flex space-x-4 mt-2 text-sm">
+                <label className="flex items-center space-x-2">
+                  <input
+                    {...register("role")}
+                    type="radio"
+                    value="Customer"
+                    className="form-radio h-3 w-3 text-blue"
+                  />
+                  <span className="text-gray-800">Customer</span>
+                </label>
+                <label className="flex items-center space-x-2">
+                  <input
+                    {...register("role")}
+                    type="radio"
+                    value="Auditor"
+                    className="form-radio h-3 w-3 text-blue"
+                  />
+                  <span className="text-gray-800">Auditor</span>
+                </label>
+                <label className="flex items-center space-x-2">
+                  <input
+                    {...register("role")}
+                    type="radio"
+                    value="Admin"
+                    className="form-radio h-3 w-3 text-blue"
+                  />
+                  <span className="text-gray-800">Admin</span>
+                </label>
+              </div>
+            </div>
+            
+            {/* Submit button */}
+            <div className="mt-6">
+              <button
+                type="submit"
+                className="w-full shadow-xl py-2.5 px-5 text-sm font-semibold rounded-md text-white bg-blue hover:bg-[#005a59] focus:outline-none"
+              >
+                Login in
+              </button>
+              <p className="text-gray-800 text-sm text-center mt-6">
+                Do not have an account{" "}
+                <Link to="/signup">
+                  <span className="text-blue-600 font-semibold hover:underline text-blue ml-1 whitespace-nowrap">
+                    Register here
+                  </span>
+                </Link>
+              </p>
+            </div>
+            
             {/* Remember me and Forgot password */}
             <div className="flex flex-wrap items-center justify-between gap-4 mt-6">
               <div className="flex items-center">
@@ -168,23 +186,7 @@ function Login() {
               </div>
             </div>
 
-            {/* Submit button */}
-            <div className="mt-12">
-              <button
-                type="submit"
-                className="w-full shadow-xl py-2.5 px-5 text-sm font-semibold rounded-md text-white bg-blue hover:bg-[#005a59] focus:outline-none"
-              >
-                Login in
-              </button>
-              <p className="text-gray-800 text-sm text-center mt-6">
-                Do not have an account{" "}
-                <Link to="/signup">
-                  <span className="text-blue-600 font-semibold hover:underline text-blue ml-1 whitespace-nowrap">
-                    Register here
-                  </span>
-                </Link>
-              </p>
-            </div>
+            
           </form>
         </div>
       </div>

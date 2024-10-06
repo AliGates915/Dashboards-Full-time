@@ -5,6 +5,8 @@ const CertificateForm = () => {
   const [name, setName] = useState('');
   const [courseName, setCourseName] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
+  const [company, setCompanyName] = useState('');
+  const [issueDate, setIssueDate] = useState('');
   const [showCertificate, setShowCertificate] = useState(false);
 
   const handleSubmit = (e) => {
@@ -24,15 +26,16 @@ const CertificateForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#ceeff5] p-4">
-      <div className="bg-white shadow-2xl p-8 rounded-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold mb-4 text-center text-gray-800">
+    <div className="mt-4 flex flex-col items-center justify-center bg-[#ceeff5] ">
+      <div className="bg-white shadow-2xl px-10 py-4 rounded-lg w-full max-w-md">
+        <h1 className="text-2xl font-bold mb-1 text-center text-gray-800">
           Certificate Form
         </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-2">
+          
           <div>
-            <label className="block text-gray-700 mb-2">Name:</label>
+            <label className="block text-gray-700 mb-2"> Person Name:</label>
             <input
               type="text"
               value={name}
@@ -41,6 +44,17 @@ const CertificateForm = () => {
               required
             />
           </div>
+          <div>
+            <label className="block text-gray-700 mb-2">Company Name:</label>
+            <input
+              type="text"
+              value={company}
+              onChange={(e) => setCompanyName(e.target.value)}
+              className="w-full p-2 border text-gray-600 border-gray-300 rounded"
+              required
+            />
+          </div>
+          
           <div>
             <label className="block text-gray-700 mb-2">Course Name:</label>
             <input
@@ -51,6 +65,18 @@ const CertificateForm = () => {
               required
             />
           </div>
+          
+          <div>
+            <label className="block text-gray-700 mb-2">Issue Date:</label>
+            <input
+              type="date"
+              value={issueDate}
+              onChange={(e) => setIssueDate(e.target.value)}
+              className="w-full p-2 border text-gray-600 border-gray-300 rounded"
+              required
+            />
+          </div>
+          
           <div>
             <label className="block text-gray-700 mb-2">Expiry Date:</label>
             <input
@@ -61,6 +87,7 @@ const CertificateForm = () => {
               required
             />
           </div>
+
           <button
             type="submit"
             className="bg-blue hover:bg-[#005a59] text-white font-bold py-2 px-4 rounded-full w-full"

@@ -14,12 +14,12 @@ function ServicesList() {
   };
   
   return (
-    <div className='bg-[#f4fcfe] mx-[18rem] w-88 border border-blue mt-8'>
+    <div className='bg-[#f4fcfe] mx-[15rem] w-[55%] border border-blue mt-8'>
         <h1 className='flex justify-center text-2xl font-bold mt-4 text-blue'>
             List of Services
         </h1>
         
-        <div className='gird grid-cols-1 mt-2 mx-[10.5rem] block'>
+        <div className='gird grid-cols-1 mt-2 mx-[13rem] block'>
             
         <div className="mb-4">
       <label htmlFor="services" className="flex justify-center font-semibold text-gray-800 mb-2">
@@ -76,7 +76,7 @@ function ServicesList() {
               <input
                 type="text"
                 required
-                className="flex justify-center text-gray-800 bg-transparent text-sm border  rounded-xl border-blue px-2 py-2 outline-none"
+                className="flex justify-center text-gray-800 bg-transparent text-sm border  rounded-xl w-full border-blue px-2 py-2 outline-none"
                 
               />
             </div>
@@ -88,7 +88,7 @@ function ServicesList() {
               <input
                 type="text"
                 required
-                className="flex justify-center text-gray-800 bg-transparent text-sm border  rounded-xl border-blue px-2 py-2 outline-none"
+                className="flex justify-center text-gray-800 bg-transparent text-sm border  rounded-xl border-blue px-2 w-full py-2 outline-none"
                 
               />
             </div>
@@ -99,8 +99,17 @@ function ServicesList() {
               </label>
               <textarea
                 rows="3"
-                className="flex justify-center text-gray-800 bg-transparent text-sm border  rounded-xl border-blue px-2 py-2 w-[13.5rem] outline-none resize-none"
+                className="flex justify-center text-gray-800 bg-transparent text-sm border  rounded-xl border-blue px-2 py-2 w-full outline-none resize-none"
               />
+              <div className='absolute right-24 top-[25rem]'>
+              <label className=" text-gray-800 text-base mb-1 block">Logo Picture *</label>
+              <input
+                type="file"
+                className="w-[24rem] text-gray-500 text-sm"
+              />
+              
+            </div>
+            
             </div>
 
             <div className='pb-6 ml-3'>

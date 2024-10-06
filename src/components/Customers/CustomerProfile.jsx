@@ -62,6 +62,7 @@ function CustomerProfile() {
           <div className='text-blue text-md'>
               Enter the details of all incoming customers.
           </div>
+          
         </div>
         
         <h1 className='ml-20 text-blue text-xl font-bold'>Personal Information</h1>
@@ -80,13 +81,24 @@ function CustomerProfile() {
             </div>
             <div>
               <label className="text-gray-800 text-lg mb-2 block">Person</label>
-              <input
-                
+              <input      
                 type="text"
                 className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
                 placeholder="Enter Person"
               />
-              
+
+            
+              {/* Logo */}
+              <div className="absolute top-[7.3rem] right-[-4rem] border px-4 py-4 flex mr-40 text-black">
+              <img
+                src="/logo-removebg-preview.png"
+                alt=""
+                width={30}
+                height={15}
+              />
+              <p className="mt-2 ml-3 text-xl font-semibold">Company Logo</p>
+            </div>
+
             </div>
             <div>
               <label className="text-gray-800 text-lg mb-2 block">Designation</label>
@@ -109,8 +121,6 @@ function CustomerProfile() {
               
             </div>
           </div>
-
-          <h1 className='ml-20 text-blue text-xl font-bold my-6'>Order Information</h1>
 
           <div className="mr-48 ml-20 grid sm:grid-cols-2 gap-8">
             <div>
@@ -198,10 +208,10 @@ function CustomerProfile() {
             </div>
           </div>
 
-          <div className="flex justify-center my-6">
+          <div className="flex ml-20 justify-start my-6">
             <button
               type="submit"
-              className="text-white w-80 bg-blue hover:bg-[#005a59] mb-4 py-2 rounded-full"
+              className="text-white w-32 font-bold bg-blue hover:bg-[#005a59] mb-4 py-2 rounded-full"
             >
               Submit
             </button>

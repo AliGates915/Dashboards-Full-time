@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +15,7 @@ const Signup = () => {
     description: "",
     designation: "",
     address: "",
-    logoPicture: null,
+    // logoPicture: null,
     role: 'User', // Default role
   });
 
@@ -37,12 +37,6 @@ const Signup = () => {
     });
   };
 
-  const handleRoleChange = (e) => {
-    setFormData({
-      ...formData,
-      role: e.target.value, // Update the role state
-    });
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
@@ -50,15 +44,7 @@ const Signup = () => {
 
     try {
       const formDataToSend = new FormData();
-      Object.keys(formData).forEach((key) => {
-        if (key !== "logoPicture") {
-          formDataToSend.append(key, formData[key]);
-        }
-      });
-
-      if (formData.logoPicture) {
-        formDataToSend.append("file", formData.logoPicture);
-      }
+      
 
       const response = await axios.post(
         "https://auditsoftware.vercel.app/auth/signup",
@@ -116,19 +102,9 @@ const Signup = () => {
               />
             </div>
 
-            {/* Logo */}
-            <div className="border px-6 py-8 flex mr-40 text-black">
-              <img
-                src="/logo-removebg-preview.png"
-                alt=""
-                width={80}
-                height={20}
-              />
-              <p className="mt-2 ml-3 text-2xl font-semibold">Company Logo</p>
-            </div>
           </div>
 
-          <div className="mr-48 grid sm:grid-cols-2 gap-6">
+          <div className="mr-48 mt-6 grid sm:grid-cols-2 gap-6">
             <div>
               <label className=" text-gray-800 text-lg mb-2 block">
                 Contact Person *
@@ -314,61 +290,12 @@ const Signup = () => {
             {errorMessage && <p>{errorMessage}</p>}
           </div>
 
-                  {/* Role Selection */}
-        <div className="mt-4">
-          {/* <label className="text-gray-800 text-md mb-2 block">Select Role *</label> */}
-          <div className="flex gap-6 text-sm">
-            <div>
-              <input
-                type="radio"
-                id="admin"
-                name="role"
-                value="Admin"
-                checked={formData.role === 'Admin'}
-                onChange={handleRoleChange}
-              />
-              <label htmlFor="admin" className="ml-2 text-gray-800">Admin</label>
-            </div>
-
-            <div>
-              <input
-                type="radio"
-                id="auditor"
-                name="role"
-                value="Auditor"
-                checked={formData.role === 'Auditor'}
-                onChange={handleRoleChange}
-              />
-              <label htmlFor="user" className="ml-2 text-gray-800">Auditor</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                id="customer"
-                name="role"
-                value="Customer"
-                checked={formData.role === 'Customer'}
-                onChange={handleRoleChange}
-              />
-              <label htmlFor="customer" className="ml-2 text-gray-800">Customer</label>
-            </div>
-          </div>
-        </div>
-
-
-          <div className="my-4 flex justify-between">
-            <p className="ml-2 text-gray-800">
-              Already have an account?
-              <span className="pl-1 text-blue font-medium">
-                <Link to="/login">Login here</Link>
-              </span>
-            </p>
-            <div className="flex mb-8 ">
+            <div className="flex justify-end ">
               <button
                 type="submit"
                 onClick={handleSubmit}
                 className=" bg-blue text-white font-medium 
-              mr-[250px] py-3 w-[8rem]  rounded-full cursor-pointer hover:bg-[#005a59]"
+              mr-[250px] py-3 w-[7.5rem] mb-4  rounded-full cursor-pointer hover:bg-[#005a59]"
               >
                 Sign up
               </button>
@@ -377,7 +304,6 @@ const Signup = () => {
                 <p style={{ color: "green" }}>{successMessage}</p>
               )}
             </div>
-          </div>
         </form>
       </div>
     </div>
