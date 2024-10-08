@@ -2,21 +2,21 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+
 const Signup = () => {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    company: "",
-    companyEmail: "",
-    contactPerson: "",
-    phoneNumber: "",
-    website: "",
+    email: "", //required
+    password: "", //required
+    confirmPassword: "", //required
+    company: "", //required
+    companyNumber: "",     
+    contactPerson: "",//required
+    mobileNumber: "", //required
+    website: "",//required
     description: "",
-    designation: "",
-    address: "",
-    // logoPicture: null,
-    role: 'User', // Default role
+    designation: "",//required
+    companyAddress: "",//required
+    accountId:'' , //required
   });
 
   const navigate = useNavigate();
@@ -42,28 +42,36 @@ const Signup = () => {
     setErrorMessage("");
     setSuccessMessage("");
 
+    const { email, password, confirmPassword } = formData;
+
+    if (!email || !password || !confirmPassword) {
+      alert('Email, password, and confirm password are required.')
+      return;
+    }
+
     try {
-      const formDataToSend = new FormData();
-      
+      const formDataToSend = {
+        email,
+        password,
+        confirmPassword,
+      };
 
       const response = await axios.post(
         "https://auditsoftware.vercel.app/auth/signup",
         formDataToSend,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json", // use JSON instead of multipart/form-data
           },
         }
       );
 
       if (response.data.status === "success") {
         const userData = response.data.data.user;
-        console.log(userData);
         const token = response.data.data.token;
-        console.log(token);
         localStorage.setItem("token", token);
         setUser(userData);
-        navigate("/login");
+        navigate("/");
         setSuccessMessage("Signup successful!");
       } else {
         setErrorMessage("An unexpected error occurred.");
@@ -77,7 +85,7 @@ const Signup = () => {
         setErrorMessage("Network error. Please check your connection.");
       }
     }
-  };
+};
 
   return (
     <div>
@@ -94,7 +102,7 @@ const Signup = () => {
               </label>
               <input
                 type="text"
-                required
+                name="company"
                 className="w-[24rem] text-gray-800 bg-transparent text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
                 placeholder="Enter company name"
                 value={FormData.company}
@@ -111,7 +119,7 @@ const Signup = () => {
               </label>
               <input
                 type="text"
-                required
+                name="contactPerson"
                 className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
                 placeholder="Enter name"
                 value={FormData.contactPerson}
@@ -124,7 +132,7 @@ const Signup = () => {
               </label>
               <input
                 type="text"
-                required
+                name="designation"
                 className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
                 placeholder="Enter designation"
                 value={FormData.designation}
@@ -138,7 +146,7 @@ const Signup = () => {
               </label>
               <input
                 type="text"
-                required
+                name="mobileNumber"
                 className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
                 placeholder="Enter mobile number"
                 value={FormData.mobileNumber}
@@ -152,7 +160,7 @@ const Signup = () => {
               </label>
               <input
                 type="number"
-                required
+                name="companyNumber"
                 className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
                 placeholder="Enter company phone number"
                 value={FormData.companyPhone}
@@ -166,7 +174,7 @@ const Signup = () => {
               </label>
               <input
                 type="text"
-                required
+                name="companyAddress"
                 className="w-full bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
                 placeholder="Enter company address"
                 value={FormData.companyAddress}
@@ -181,6 +189,7 @@ const Signup = () => {
                 Email *
               </label>
               <input
+                name="email"
                 type="email"
                 required
                 className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
@@ -196,7 +205,7 @@ const Signup = () => {
               </label>
               <input
                 type="text"
-                required
+                name="website"
                 className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
                 placeholder="Enter website"
                 value={FormData.website}
@@ -211,6 +220,7 @@ const Signup = () => {
             </label>
             <textarea
               rows="5"
+              name="description"
               className="w-[73%] bg-transparent text-gray-800 text-sm border border-gray-300 focus:border-blue px-3 py-2 outline-none resize-none"
               placeholder="Enter company description"
               value={FormData.description}
@@ -223,8 +233,8 @@ const Signup = () => {
               Account ID *
             </label>
             <input
+              name="accountId"
               type="text"
-              required
               className="w-[46rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
               placeholder="Enter account ID"
               value={FormData.accountId}
@@ -239,6 +249,8 @@ const Signup = () => {
               </label>
               <div className="relative flex">
                 <input
+                required
+                name='password'
                   type={passwordVisible ? "text" : "password"}
                   className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
                   placeholder="Enter password"
@@ -265,6 +277,8 @@ const Signup = () => {
               </label>
               <div className="relative flex">
                 <input
+                name="confirmPassword"
+                  required
                   type={passwordVisible ? "text" : "password"}
                   className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
                   placeholder="Confirm password"

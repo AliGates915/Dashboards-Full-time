@@ -32,7 +32,7 @@ function Login() {
           }
         } else {
           alert("Login failed. No token generated. Redirecting to signup.");
-          navigate("/signup");
+          navigate("/");
         }
       })
       .catch((err) => {

@@ -19,6 +19,7 @@ import CustomerQuestions from "./components/Customers/Course/CustomerQuestions";
 import CertificateForm from './components/Certificate/CertificateForm'
 import AddQuestion from './components/Add Questions/AddQuestion'
 import Branch from './components/Branches/Branch'
+import Verification from './components/Verification/Verification'
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -27,7 +28,6 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<Login users={users}/>} />
-        <Route path="/login" element={<Login users={users} />} />
         <Route
           path="/signup"
           element={<SignUp setUsers={setUsers} users={users} />}
@@ -118,7 +118,6 @@ function App() {
         />
 
         {/* Course */}
-        
         <Route
           path="/course"
           element={
@@ -129,7 +128,19 @@ function App() {
             </Layout>
           }
         />
-        
+
+        {/* Verification */}
+        <Route
+          path="/verification"
+          element={
+            <Layout>
+              <div className="bg-[#ceeff5] w-full h-full">
+                <Verification />
+              </div>
+            </Layout>
+          }
+        />
+  
         <Route
           path="/customer-questions"
           element={

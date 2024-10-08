@@ -75,7 +75,7 @@ const menuItems = [
       {
         icon: "/lesson.jpeg",
         label: "Verifications",
-        href: "/",
+        href: "/verification",
       },
       {
         icon: "/subject.png",
