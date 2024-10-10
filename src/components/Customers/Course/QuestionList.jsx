@@ -15,7 +15,8 @@ const QuestionList = () => {
   const [gradeVisible, setGradeVisible] = useState(false);
   const [marks, setMarks] = useState(0);
   const [totalQuestions, setTotalQuestions] = useState(0);
-  const [results, setResults] = useState({}); // State to track correct/incorrect answers
+  const [ setResults] = useState({}); // State to track correct/incorrect answers
+  const [extraNotes, setExtraNotes] = useState({}); // State to handle extra notes for "No Confirm" or "Observation"
 
   // Load questions for each course from questionsData
   useEffect(() => {
@@ -32,6 +33,27 @@ const QuestionList = () => {
       [course]: {
         ...prevAnswers[course],
         [questionIndex]: answer,
+      },
+    }));
+
+    // Reset extra notes if confirm is selected
+    if (answer === 'confirm') {
+      setExtraNotes((prevNotes) => ({
+        ...prevNotes,
+        [course]: {
+          ...prevNotes[course],
+          [questionIndex]: '',
+        },
+      }));
+    }
+  };
+
+  const handleExtraNotesChange = (course, questionIndex, notes) => {
+    setExtraNotes((prevNotes) => ({
+      ...prevNotes,
+      [course]: {
+        ...prevNotes[course],
+        [questionIndex]: notes,
       },
     }));
   };
@@ -98,40 +120,46 @@ const QuestionList = () => {
                           <input
                             type="radio"
                             name={`question-${course}-${index}`}
-                            value="Yes"
-                            onChange={() => handleAnswerChange(course, index, 'Yes')}
-                            checked={answers[course]?.[index] === 'Yes'}
+                            value="confirm"
+                            onChange={() => handleAnswerChange(course, index, 'confirm')}
+                            checked={answers[course]?.[index] === 'confirm'}
                           />{' '}
-                          Yes
-                          {gradeVisible && answers[course]?.[index] === 'Yes' && (
-                            <span className="ml-2">
-                              {results[`${course}-${index}`] === 'correct' ? (
-                                <span className="text-green">✔️</span>
-                              ) : (
-                                <span className="text-red">❌</span>
-                              )}
-                            </span>
-                          )}
+                          Confirm
+                          
                         </label>
+
                         <label>
                           <input
                             type="radio"
                             name={`question-${course}-${index}`}
-                            value="No"
-                            onChange={() => handleAnswerChange(course, index, 'No')}
-                            checked={answers[course]?.[index] === 'No'}
+                            value="noConfirm"
+                            onChange={() => handleAnswerChange(course, index, 'noConfirm')}
+                            checked={answers[course]?.[index] === 'noConfirm'}
                           />{' '}
-                          No
-                          {gradeVisible && answers[course]?.[index] === 'No' && (
-                            <span className="ml-2">
-                              {results[`${course}-${index}`] === 'correct' ? (
-                                <span className="text-green">✔️</span>
-                              ) : (
-                                <span className="text-red">❌</span>
-                              )}
-                            </span>
-                          )}
+                          No-Confirm
                         </label>
+                        <span className='ml-4'>
+                        <label>
+                          <input
+                            type="radio"
+                            name={`question-${course}-${index}`}
+                            value="observation"
+                            onChange={() => handleAnswerChange(course, index, 'observation')}
+                            checked={answers[course]?.[index] === 'observation'}
+                          />{' '}
+                          Observation
+                        </label>
+                        </span>
+                        {/* Conditionally render the small input field */}
+                        {(answers[course]?.[index] === 'noConfirm' || answers[course]?.[index] === 'observation') && (
+                          <input
+                            type="text"
+                            className="ml-8 h-10 border rounded-md px-2 py-1 w-96 text-sm"
+                            placeholder="Enter about No-confirm or Observation"
+                            value={extraNotes[course]?.[index] || ''}
+                            onChange={(e) => handleExtraNotesChange(course, index, e.target.value)}
+                          />
+                        )}
                       </div>
                     </div>
                   );
@@ -146,7 +174,7 @@ const QuestionList = () => {
         ))}
 
         {gradeVisible && (
-          <div className="my-2 flex text-gray-800 items-center justify-center ">
+          <div className="my-2 flex text-gray-800 items-center justify-center">
             <h2 className="text-2xl font-bold">Overall Result: </h2>
             <p className="ml-4 text-lg">
               You scored {marks} out of {totalQuestions}.

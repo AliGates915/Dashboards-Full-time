@@ -2,34 +2,31 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
 const Signup = () => {
   const [formData, setFormData] = useState({
-    email: "", //required
-    password: "", //required
-    confirmPassword: "", //required
-    company: "", //required
-    companyNumber: "",     
-    contactPerson: "",//required
-    mobileNumber: "", //required
-    website: "",//required
+    email: "",
+    password: "",
+    confirmPassword: "",
+    company: "",
+    companyEmail : "",
+    contactPerson: "",
+    phoneNumber: "",
+    website: "",
     description: "",
-    designation: "",//required
-    companyAddress: "",//required
-    accountId:'' , //required
+    designation: "",
+    address: "",
   });
 
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [, setUser] = useState(null); // State to store user info
-
+  
+  const [, setUser] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -37,41 +34,48 @@ const Signup = () => {
     });
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
     setSuccessMessage("");
 
-    const { email, password, confirmPassword } = formData;
-
-    if (!email || !password || !confirmPassword) {
-      alert('Email, password, and confirm password are required.')
-      return;
-    }
-
     try {
-      const formDataToSend = {
-        email,
-        password,
-        confirmPassword,
-      };
+      // Create a FormData object to send form data
+      const formDataToSend = new FormData();
 
+      // Append form fields to the FormData object
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("password", formData.password);
+      formDataToSend.append("confirmPassword", formData.confirmPassword);
+      formDataToSend.append("company", formData.company);
+      formDataToSend.append("companyEmail", formData.companyEmail);
+      formDataToSend.append("contactPerson", formData.contactPerson);
+      formDataToSend.append("phoneNumber", formData.phoneNumber);
+      formDataToSend.append("website", formData.website);
+      formDataToSend.append("description", formData.description);
+      formDataToSend.append("designation", formData.designation);
+      formDataToSend.append("address", formData.address);
+
+      // Send the form data to the backend
       const response = await axios.post(
         "https://auditsoftware.vercel.app/auth/signup",
         formDataToSend,
         {
           headers: {
-            "Content-Type": "application/json", // use JSON instead of multipart/form-data
+            "Content-Type": "multipart/form-data",
           },
         }
       );
 
       if (response.data.status === "success") {
         const userData = response.data.data.user;
+        console.log(userData);
         const token = response.data.data.token;
+        console.log(token);
         localStorage.setItem("token", token);
         setUser(userData);
-        navigate("/");
+        navigate("/login");
         setSuccessMessage("Signup successful!");
       } else {
         setErrorMessage("An unexpected error occurred.");
@@ -85,116 +89,60 @@ const Signup = () => {
         setErrorMessage("Network error. Please check your connection.");
       }
     }
-};
+  };
 
   return (
     <div>
-      <div className="w-90 h-screen bg-white ml-48 font-[sans-serif] p-3">
-        <div className=" flex justify-center mr-40 mb-8">
-          <h4 className="text-blue text-2xl font-bold">Create a New Account</h4>
+    <div className="w-90 h-screen bg-white ml-48 font-[sans-serif] p-3">
+      <div className="flex justify-center mr-40 mb-8">
+        <h4 className="text-blue text-2xl font-bold">Create a New Account</h4>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+      <h1 className='my-4 text-blue text-xl font-bold'>Company Information</h1>
+        
+        <div className="flex justify-between">
+          
+          <div>
+            <label className="text-gray-800 text-lg mb-2 block">
+              Company Name *
+            </label>
+            <input
+              type="text"
+              name="company"
+              className="w-[24rem] text-gray-800 bg-transparent text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
+              placeholder="Enter company name"
+              value={formData.company}
+              onChange={handleInputChange}
+            />
+          </div>
         </div>
 
-        <form onSubmit={(e) => e.preventDefault()}>
-          <div className="flex justify-between">
-            <div className="">
-              <label className="text-gray-800 text-lg mb-2 block">
-                Company Name *
-              </label>
-              <input
-                type="text"
-                name="company"
-                className="w-[24rem] text-gray-800 bg-transparent text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
-                placeholder="Enter company name"
-                value={FormData.company}
-                onChange={handleInputChange}
-              />
-            </div>
-
-          </div>
-
           <div className="mr-48 mt-6 grid sm:grid-cols-2 gap-6">
-            <div>
+          <div>
               <label className=" text-gray-800 text-lg mb-2 block">
-                Contact Person *
-              </label>
-              <input
-                type="text"
-                name="contactPerson"
-                className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
-                placeholder="Enter name"
-                value={FormData.contactPerson}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <label className=" text-gray-800 text-lg mb-2 block">
-                Designation *
-              </label>
-              <input
-                type="text"
-                name="designation"
-                className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
-                placeholder="Enter designation"
-                value={FormData.designation}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div>
-              <label className="text-gray-800 text-lg mb-2 block">
-                Mobile No. *
-              </label>
-              <input
-                type="text"
-                name="mobileNumber"
-                className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
-                placeholder="Enter mobile number"
-                value={FormData.mobileNumber}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div>
-              <label className="text-gray-800 text-lg mb-2 block">
-                Company Phone No.
-              </label>
-              <input
-                type="number"
-                name="companyNumber"
-                className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
-                placeholder="Enter company phone number"
-                value={FormData.companyPhone}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div>
-              <label className="text-gray-800 text-lg mb-2 block">
                 Company Address *
               </label>
               <input
                 type="text"
                 name="companyAddress"
-                className="w-full bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
-                placeholder="Enter company address"
-                value={FormData.companyAddress}
+                required
+                className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
+                placeholder="Enter Company Address"
+                value={formData.companyAddress}
                 onChange={handleInputChange}
               />
             </div>
-          </div>
-
-          <div className="mr-48 mt-10 grid sm:grid-cols-2 gap-6">
             <div>
-              <label className="text-gray-800 text-lg mb-2 block">
-                Email *
+              <label className=" text-gray-800 text-lg mb-2 block">
+                Company Contact No.
               </label>
               <input
-                name="email"
-                type="email"
-                required
+                type="number"
+            name="companyContact"
                 className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
-                placeholder="Enter email"
-                value={FormData.email}
+                placeholder="Enter Contact No."
+                value={formData.companyContact}
                 onChange={handleInputChange}
               />
             </div>
@@ -205,10 +153,118 @@ const Signup = () => {
               </label>
               <input
                 type="text"
-                name="website"
+                   name="website"
                 className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
                 placeholder="Enter website"
-                value={FormData.website}
+                value={formData.website}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div>
+              <label className="text-gray-800 text-lg mb-2 block">
+                Official Email *
+              </label>
+              <input
+                type="text"
+                 name="officialEmail"
+                placeholder="Enter Official Email"
+                value={formData.officialEmail}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div>
+              <label className=" text-gray-800 text-lg mb-2 block">
+                Industry/Service Sector *
+              </label>
+              <input
+                type="text"
+                name="industryService"
+                required
+                className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
+                placeholder="Industry or Service Sector"
+                value={formData.industryService}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label className=" text-gray-800 text-lg mb-2 block">
+                City *
+              </label>
+              <input
+                type="text"
+                name="city"
+                className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
+                placeholder="Enter city"
+                value={formData.city}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div>
+              <label className="text-gray-800 text-lg mb-2 block">
+                Province/State
+              </label>
+              <input
+                type="text"
+                   name="province"
+                className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
+                placeholder="Province or State"
+                value={formData.province}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div>
+              <label className="text-gray-800 text-lg mb-2 block">
+                Postal Code
+              </label>
+              <input
+                type="number"
+                 name="postalCode"
+                placeholder="Enter Postal Code"
+                value={formData.postalCode}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div>
+              <label className="text-gray-800 text-lg mb-2 block">
+                Country *
+              </label>
+              <input
+                type="text"
+                name="country"
+                className="w-full bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
+                placeholder="Enter country"
+                value={formData.country}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div>
+              <label className="text-gray-800 text-lg mb-2 block">
+              NTN
+              </label>
+              <input
+                type="ntn"
+               name="NTN"
+                className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
+                placeholder="Enter NTN"
+                value={formData.NTN}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div>
+              <label className="text-gray-800 text-lg mb-2 block">
+                Logo
+              </label>
+              <input
+                type="file"
+                name='logo'
+                value={formData.logo}
                 onChange={handleInputChange}
               />
             </div>
@@ -220,26 +276,99 @@ const Signup = () => {
             </label>
             <textarea
               rows="5"
-              name="description"
               className="w-[73%] bg-transparent text-gray-800 text-sm border border-gray-300 focus:border-blue px-3 py-2 outline-none resize-none"
-              placeholder="Enter company description"
-              value={FormData.description}
+              placeholder="Enter a short description of company operations."
+              name="description"
+              value={formData.description}
               onChange={handleInputChange}
             />
           </div>
 
-          <div className="mb-4 mt-6">
+          {/* Customer Data */}
+          <h1 className='my-4 text-blue text-xl font-bold'>Customer Information</h1>
+          <div className="mr-48 grid sm:grid-cols-2 gap-8">
+            <div>
+              <label className="text-gray-800 text-lg mb-2 block">City *</label>
+              <input
+                type="text"
+                name="customerCity"
+                className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
+                placeholder="Enter City"
+                value={formData.customerCity}
+                onChange={handleInputChange}
+              />
+              
+            </div>
+            <div>
+              <label className="text-gray-800 text-lg mb-2 block">Mobile Number *</label>
+              <input
+                type="number"
+                name='customerNumber'
+                className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
+                placeholder="Enter Mobile Number"
+                value={formData.customerNumber}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label className="text-gray-800 text-lg mb-2 block">NTN *</label>
+              <input
+                
+                type="number"
+                name="customerNTN"
+                className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
+                placeholder="Enter NTN"
+                value={formData.customerNTN}
+                onChange={handleInputChange}
+              />
+              
+            </div>
+            <div>
+              <label className="text-gray-800 text-lg mb-2 block">STRN *</label>
+              <input
+              
+                type="number"
+                name="strn"
+                className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
+                placeholder="Enter STRN"
+                value={formData.strn}
+                onChange={handleInputChange}
+              />
+              
+            </div>
+          </div>
+
+          <h1 className='my-4 text-blue text-xl font-bold'>Account Information</h1>
+          <div className="mr-48 grid sm:grid-cols-2 gap-8 mb-5">
+          <div>
+              <label className="text-gray-800 text-lg mb-2 block">Username/Email address *</label>
+              <input
+                type="text"
+                name="customerEmail"
+                className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
+                placeholder="Username or Email"
+                value={formData.customerEmail}
+                onChange={handleInputChange}
+              />    
+            </div>
+            <div>
             <label className="text-gray-800 text-lg mb-2 block">
               Account ID *
             </label>
             <input
-              name="accountId"
               type="text"
-              className="w-[46rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
+              name="accountId"
+              className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
               placeholder="Enter account ID"
-              value={FormData.accountId}
+              value={formData.accountId}
               onChange={handleInputChange}
             />
+
+            </div>
+            
+          </div>
+          <div className="">
+            {/* account id */}
           </div>
 
           <div className="mt-18 grid sm:grid-cols-2 gap-6 mr-48">
@@ -249,12 +378,11 @@ const Signup = () => {
               </label>
               <div className="relative flex">
                 <input
-                required
-                name='password'
                   type={passwordVisible ? "text" : "password"}
                   className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
                   placeholder="Enter password"
-                  value={FormData.password}
+                  name="password"
+                  value={formData.password}
                   onChange={handleInputChange}
                 />
                 <svg
@@ -277,12 +405,11 @@ const Signup = () => {
               </label>
               <div className="relative flex">
                 <input
-                name="confirmPassword"
-                  required
                   type={passwordVisible ? "text" : "password"}
                   className="w-[24rem] bg-transparent text-gray-800 text-sm border-b border-gray-300 focus:border-blue px-2 py-2 outline-none"
                   placeholder="Confirm password"
-                  value={FormData.confirmPassword}
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
                   onChange={handleInputChange}
                 />
 

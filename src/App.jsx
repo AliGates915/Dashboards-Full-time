@@ -20,6 +20,7 @@ import CertificateForm from './components/Certificate/CertificateForm'
 import AddQuestion from './components/Add Questions/AddQuestion'
 import Branch from './components/Branches/Branch'
 import Verification from './components/Verification/Verification'
+import CustomerDashboard from "./components/Dashboard/customer/CustomerDashboard";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -57,6 +58,20 @@ function App() {
             </Layout>
           }
         />
+
+        {/* Customer dashboard */}
+        <Route
+          path="/customer-dashboard"
+          element={
+            <Layout>
+              <div className="bg-[#ceeff5] w-full h-full">
+                <CustomerDashboard />
+              </div>
+            </Layout>
+          }
+        />
+       
+
         <Route path="/customerProfile" element={<CustomerProfile />} />
         <Route
           path="/services-type"

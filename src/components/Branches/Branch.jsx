@@ -21,7 +21,7 @@ function ServicesTypes() {
   return (
     <div className='bg-[#f4fcfe] mx-[18rem] w-88 border-blue border mt-40'>
       <h1 className='flex justify-start text-2xl font-bold mt-4 pl-8 text-blue'>
-        Branches
+        Business Office
       </h1>
 
       <div className='grid grid-cols-1 mt-2 mx-[2rem] '>
